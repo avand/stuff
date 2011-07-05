@@ -1,0 +1,69 @@
+<html>
+  <head>
+    <style>
+      html {
+        background: #090638;
+      }
+      body {
+        font-family: 'Lucida Grande', Arial, sans-serif;
+        width: 600px;
+        border-width: 1px 3px 3px 1px;
+        border-color: #000;
+        border-style: solid;
+        margin: 100px auto;
+        padding: 20px;
+        background: white;
+      }
+      h1 {
+        font-size: 18px;
+        line-height: 24px;
+        margin: 0 0 1em;
+      }
+      h2 {
+        font-size: 16px;
+        line-height: 22px;
+        margin: 0 0 .5em;
+      }
+      .things {
+        padding-left: 30px;
+        margin-top: 0;
+        margin-bottom: 1.5em;
+      }
+      .thing {
+        line-height: 1.8em;
+        padding-left: 10px;
+      }
+      .last-generated {
+        font-size: 11px;
+        color: #999;
+      }
+      .completed {
+        text-decoration: line-through;
+      }
+    </style>
+  </head>
+
+  <body>
+    <h1>Today&#8217;s Things</h1>
+
+    <% if @things_by_area.keys.size == 0 %>
+      <div class="empty">
+        <p>Nothing.</p>
+      </div>
+    <% end %>
+
+    <% @things_by_area.each do |area, things| %>
+      <h2><%= area %></h2>
+
+      <ul class="things">
+        <% things.each do |thing| %>
+          <li class="thing<%= ' completed' if thing[:completed] %>"><%= thing[:title] %></li>
+        <% end %>
+      </ul>
+    <% end %>
+
+    <p class="last-generated">
+      Last generated at <%= Time.now.strftime('%B %d, %Y at %I:%M %P') %>.
+    </p>
+  </body>
+</html>

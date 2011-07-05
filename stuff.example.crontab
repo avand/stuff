@@ -1,0 +1,7 @@
+PATH=/Users/avand/.rvm/gems/ruby-1.9.2-p0/bin:/Users/avand/.rvm/gems/ruby-1.9.2-p0@global/bin:/Users/avand/.rvm/rubies/ruby-1.9.2-p0/bin:/Users/avand/.rvm/bin:/usr/local/share/npm/bin:/scripts:~/bin:/usr/local/bin:/usr/local/sbin:/usr/local/mysql/bin:/usr/local/git/bin:/opt/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/X11/bin
+GEM_HOME=/Users/avand/.rvm/gems/ruby-1.9.2-p0
+GEM_PATH=/Users/avand/.rvm/gems/ruby-1.9.2-p0:/Users/avand/.rvm/gems/ruby-1.9.2-p0@global
+RUBYOPT=rubygems
+
+#min	hour	mday	month	wday	command
+*	*/1	*	*	*	~/.rvm/rubies/ruby-1.9.2-p0/bin/ruby ~/Git/stuff/stuff.rb Sqoot Datebook > ~/Dropbox/Public/today.html
