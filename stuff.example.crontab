@@ -4,4 +4,4 @@ GEM_PATH=/Users/avand/.rvm/gems/ruby-1.9.2-p0:/Users/avand/.rvm/gems/ruby-1.9.2-
 RUBYOPT=rubygems
 
 #min	hour	mday	month	wday	command
-*	*/1	*	*	*	~/.rvm/rubies/ruby-1.9.2-p0/bin/ruby ~/Git/stuff/stuff.rb Sqoot Datebook > ~/Dropbox/Public/today.html
+0	*/1	*	*	*	ruby ~/Git/stuff/stuff.rb Sqoot Datebook > ~/Dropbox/Public/today.html
