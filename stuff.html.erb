@@ -40,6 +40,12 @@
       .completed {
         text-decoration: line-through;
       }
+      .more-or-less {
+        text-decoration: none;
+        color: blue;
+        line-height: 8px;
+        font-size: 18px;
+      }
     </style>
   </head>
 
@@ -56,8 +62,18 @@
       <h2><%= area %></h2>
 
       <ul class="things">
-        <% things.each do |thing| %>
-          <li class="thing<%= ' completed' if thing[:completed] %>"><%= thing[:title] %></li>
+        <% things.each_with_index do |thing, i| %>
+          <li class="thing<%= ' completed' if thing[:completed] %>">
+            <%= thing[:title] %>
+
+            <% if thing[:description] %>
+              <a href="javascript:void(0)" onclick="var e = document.getElementById('description-<%= i %>'); if (e.style.display == 'none') { e.style.display = ''; } else { e.style.display = 'none'; };" class="more-or-less">&hellip; </a>
+
+              <div id="description-<%= i %>" class="description" style="display: none">
+                <pre><%= thing[:description] %></pre>
+              </div>
+            <% end %>
+          </li>
         <% end %>
       </ul>
     <% end %>

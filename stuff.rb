@@ -36,9 +36,15 @@ class Stuff
 
       next if !attribute
 
+      parent_node      = attribute.parent
+      title_node       = parent_node.xpath("attribute[@name='title']").first
+      completed_node   = parent_node.xpath("attribute[@name='datecompleted']").first
+      description_node = parent_node.xpath("attribute[@name='content']").first
+
       todos << {
-        :title     => attribute.parent.xpath("attribute[@name='title']").first.text,
-        :completed => !attribute.parent.xpath("attribute[@name='datecompleted']").first.nil?
+        :title       => title_node.text,
+        :completed   => !completed_node.nil?,
+        :description => description_node ? description_node.text.gsub('\u3c00note xml:space="preserve"\u3e00', '').gsub('\u3c00/note\u3e00', '').strip : nil
       }
     end
 
