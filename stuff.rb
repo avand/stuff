@@ -1,17 +1,20 @@
 require 'rubygems'
 require 'nokogiri'
 require 'erb'
+require 'optparse'
 
 class Stuff
-  TODAY_FOCUS_TYPE         = 65536.freeze
-  DEFAULT_PATH_TO_DATABASE = '~/Library/Application Support/Cultured Code/Things/Database.xml'.freeze
+  TODAY_FOCUS_TYPE = 65536.freeze
+  DEFAULT_DB_PATH  = '~/Library/Application Support/Cultured Code/Things/Database.xml'.freeze
+
+  attr_accessor :xml
 
   def initialize(options = {})
-    @path_to_database = File.expand_path options[:path_to_database] || DEFAULT_PATH_TO_DATABASE
-    @path_to_template = File.expand_path File.join(File.dirname(__FILE__), '/stuff.html.erb')
-    @areas            = options[:areas]
-    @xml              = Nokogiri::XML(open(@path_to_database))
-    @things_by_area   = {}
+    @db_path        = File.expand_path options[:db_path] || DEFAULT_DB_PATH
+    @template_path  = File.expand_path File.join(File.dirname(__FILE__), '/stuff.html.erb')
+    @areas          = options[:areas]
+    @xml            = Nokogiri::XML(open(@db_path))
+    @things_by_area = {}
   end
 
   def run
@@ -25,7 +28,7 @@ class Stuff
       end
     end
 
-    puts ERB.new(open(@path_to_template).read).result(binding)
+    puts ERB.new(open(@template_path).read).result(binding)
   end
 
   def get_todays_todos(idrefs)
@@ -52,4 +55,18 @@ class Stuff
   end
 end
 
-Stuff.new(:areas => ARGV).run
+options = {}
+
+parser = OptionParser.new do |opts|
+  opts.banner = "Usage: stuff.rb Area1 Area2 Area3 [options]"
+
+  opts.on("-p", "--db-path [PATH]", String, "Path to DB (default: #{Stuff::DEFAULT_DB_PATH})") do |path|
+    options[:db_path] = path
+  end
+end
+
+parser.parse!
+
+options = { areas: ARGV }.merge(options)
+
+options.empty? ? puts(parser.help) : Stuff.new(options).run
